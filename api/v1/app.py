@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 """Flask app main module"""
-from flask import Flask
+from flask import Flask, jsonify
 from models import storage
 from api.v1.views import app_views
 from os import getenv
+from flask_restful import Resource
 
 app = Flask(__name__)
 
@@ -14,6 +15,12 @@ app.register_blueprint(app_views)
 def shutdown(exception=None):
     """close storage after every request"""
     storage.close()
+
+
+@app.errorhandler(404)
+def handle_not_found(error):
+    """return a not found response"""
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
