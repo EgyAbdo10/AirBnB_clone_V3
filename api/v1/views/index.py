@@ -1,0 +1,10 @@
+#!/usr/bin/python3
+"""routes of the app_view blueprint"""
+# from api.v1.views import app_views avoid circular import
+from flask import jsonify
+
+
+def register_routes(app_views):
+    @app_views.route("/status")
+    def get_status():
+        return jsonify({"status": "OK"})
