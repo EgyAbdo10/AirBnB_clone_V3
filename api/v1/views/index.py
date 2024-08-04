@@ -5,6 +5,8 @@ from flask import jsonify
 
 
 def register_routes(app_views):
+    """register all routes of blueprint app_views"""
     @app_views.route("/status")
     def get_status():
+        """return status OK"""
         return jsonify({"status": "OK"})

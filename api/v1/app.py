@@ -12,6 +12,7 @@ app.register_blueprint(app_views)
 
 @app.teardown_appcontext
 def shutdown(exception=None):
+    """close storage after every request"""
     storage.close()
 
 
