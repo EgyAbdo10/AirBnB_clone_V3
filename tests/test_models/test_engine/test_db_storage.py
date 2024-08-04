@@ -70,7 +70,6 @@ test_db_storage.py'])
 
     def test_get(self):
         """test get storage method"""
-
         os.environ["HBNB_TYPE_STORAGE"] = "db"
         os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
         os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
