@@ -21,7 +21,7 @@ def shutdown(exception=None):
 
 @app.errorhandler(404)
 def handle_not_found(error):
-    """return a not found response"""
+    """return a not found response """
     return make_response(jsonify({"error": "Not found"}), 404)
 
 
