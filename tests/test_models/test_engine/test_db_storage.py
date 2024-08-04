@@ -68,25 +68,18 @@ test_db_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_get(self):
         """test get storage method"""
-        os.environ["HBNB_TYPE_STORAGE"] = "db"
-        os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
-        os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
-        os.environ['HBNB_MYSQL_HOST'] = 'localhost'
-        os.environ['HBNB_MYSQL_DB'] = 'hbnb_dev_db'
         first_state_id = list(storage.all(State).values())[0].id
         first_state_obj = storage.get(State, first_state_id)
         self.assertTrue(type(first_state_obj) is State)
         self.assertTrue(first_state_obj.id == first_state_id)
 
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_count(self):
         """count records in db"""
-        os.environ["HBNB_TYPE_STORAGE"] = "db"
-        os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
-        os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
-        os.environ['HBNB_MYSQL_HOST'] = 'localhost'
-        os.environ['HBNB_MYSQL_DB'] = 'hbnb_dev_db'
+        storage.reload()
         count = storage.count()
         self.assertTrue(len(storage.all()) == count)
 
