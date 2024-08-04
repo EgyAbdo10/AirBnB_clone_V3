@@ -19,6 +19,8 @@ if models.storage_t == "db":
 else:
     Base = object
 
+# Base = declarative_base()
+
 
 class BaseModel:
     """The BaseModel class from which future classes will be derived"""

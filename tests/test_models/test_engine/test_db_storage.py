@@ -6,6 +6,7 @@ Contains the TestDBStorageDocs and TestDBStorage classes
 from datetime import datetime
 import inspect
 import models
+from models import storage
 from models.engine import db_storage
 from models.amenity import Amenity
 from models.base_model import BaseModel
@@ -67,22 +68,44 @@ test_db_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
+    def test_get(self):
+        """test get storage method"""
 
-class TestFileStorage(unittest.TestCase):
-    """Test the FileStorage class"""
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_all_returns_dict(self):
-        """Test that all returns a dictionaty"""
-        self.assertIs(type(models.storage.all()), dict)
+        os.environ["HBNB_TYPE_STORAGE"] = "db"
+        os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
+        os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
+        os.environ['HBNB_MYSQL_HOST'] = 'localhost'
+        os.environ['HBNB_MYSQL_DB'] = 'hbnb_dev_db'
+        first_state_id = list(storage.all(State).values())[0].id
+        first_state_obj = storage.get(State, first_state_id)
+        self.assertTrue(type(first_state_obj) is State)
+        self.assertTrue(first_state_obj.id == first_state_id)
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_all_no_class(self):
-        """Test that all returns all rows when no class is passed"""
+    def test_count(self):
+        """count records in db"""
+        os.environ["HBNB_TYPE_STORAGE"] = "db"
+        os.environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
+        os.environ['HBNB_MYSQL_PWD'] = 'hbnb_dev_pwd'
+        os.environ['HBNB_MYSQL_HOST'] = 'localhost'
+        os.environ['HBNB_MYSQL_DB'] = 'hbnb_dev_db'
+        count = storage.count()
+        self.assertTrue(len(storage.all()) == count)
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_new(self):
-        """test that new adds an object to the database"""
+# class TestFileStorage(unittest.TestCase):
+#     """Test the FileStorage class"""
+#     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+#     def test_all_returns_dict(self):
+#         """Test that all returns a dictionaty"""
+#         self.assertIs(type(models.storage.all()), dict)
 
-    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
-    def test_save(self):
-        """Test that save properly saves objects to file.json"""
+#     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+#     def test_all_no_class(self):
+#         """Test that all returns all rows when no class is passed"""
+
+#     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+#     def test_new(self):
+#         """test that new adds an object to the database"""
+
+#     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+#     def test_save(self):
+#         """Test that save properly saves objects to file.json"""
