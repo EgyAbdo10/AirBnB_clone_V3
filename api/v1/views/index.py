@@ -1,10 +1,9 @@
 #!/usr/bin/python3
 """routes of the app_view blueprint"""
 # from api.v1.views import app_views avoid circular import
-from flask import jsonify, make_response
+from flask import jsonify  # , make_response
 from models import storage
 from models.amenity import Amenity
-from models.base_model import BaseModel, Base
 from models.city import City
 from models.place import Place
 from models.review import Review
