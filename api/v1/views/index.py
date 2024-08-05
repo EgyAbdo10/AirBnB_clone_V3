@@ -10,24 +10,27 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from api.v1.views import app_views
 
 
 classes = {"amenities": Amenity, "cities": City,
            "places": Place, "reviews": Review, "states": State, "users": User}
 
 
-def register_routes(app_views):
-    """register all routes of blueprint app_views"""
-    @app_views.route("/status")
-    def get_status():
-        """return status OK"""
-        return jsonify({"status": "OK"})
+# def register_routes(app_views):
+#     """register all routes of blueprint app_views"""
 
-    @app_views.route("/stats")
-    def get_stats():
-        """get objects count"""
-        stats = {}
-        for cls_name, cls in classes.items():
-            stats[cls_name] = storage.count(cls)
+@app_views.route("/status")
+def get_status():
+    """return status OK"""
+    return jsonify({"status": "OK"})
 
-        return make_response(jsonify(stats), 200)
+
+@app_views.route("/stats")
+def get_stats():
+    """get objects count"""
+    stats = {}
+    for cls_name, cls in classes.items():
+        stats[cls_name] = storage.count(cls)
+
+    return make_response(jsonify(stats), 200)
