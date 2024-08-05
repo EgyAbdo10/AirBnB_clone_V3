@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """routes of the app_view blueprint"""
 # from api.v1.views import app_views avoid circular import
-from flask import jsonify
+from flask import jsonify, make_response
 from models import storage
 from models.amenity import Amenity
 from models.base_model import BaseModel, Base
@@ -30,4 +30,4 @@ def register_routes(app_views):
         for cls_name, cls in classes.items():
             stats[cls_name] = storage.count(cls)
 
-        return jsonify(stats)
+        return make_response(jsonify(stats), 200)
