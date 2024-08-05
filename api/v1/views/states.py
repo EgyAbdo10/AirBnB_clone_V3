@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """retrieve state objects"""
 from models.state import State
-from flask import Flask, Response, request, jsonify
-from flask_restful import Api, Resource, reqparse, abort, request
+from flask import jsonify
+from flask_restful import Resource, abort, request
 from models import storage
 
 
@@ -28,7 +28,7 @@ class State_view_all(Resource):
         """Creates a State: POST /api/v1/states"""
         try:
             data = request.get_json()
-        except Exception as e:
+        except Exception:
             abort(400, message="Not a JSON")
         if "name" not in data.keys():
             abort(400, message="Missing name")
@@ -56,7 +56,7 @@ class State_view(Resource):
         obj = abortNotExists(State, state_id)
         try:
             data = request.get_json()
-        except Exception as e:
+        except Exception:
             abort(400, message="Not a JSON")
 
         for key, val in data.items():
