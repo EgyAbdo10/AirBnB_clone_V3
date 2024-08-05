@@ -2,11 +2,12 @@
 """Flask app main module"""
 
 
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify, make_response, abort
 from models import storage
 from api.v1.views import app_views
 from os import getenv
 from flask_restful import Resource
+
 
 app = Flask(__name__)
 
@@ -21,7 +22,7 @@ def shutdown(exception=None):
 
 @app.errorhandler(404)
 def handle_not_found(error):
-    """return a not found response """
+    """return a not found response"""
     return make_response(jsonify({"error": "Not found"}), 404)
 
 
