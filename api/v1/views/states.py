@@ -1,8 +1,7 @@
 #!/usr/bin/python3
-"""retrieve state objects"""
+"""modify state objects via APIs"""
 from models.state import State
-from flask import jsonify, make_response
-from flask_restful import abort, request
+from flask import jsonify, make_response, abort, request
 from models import storage
 from api.v1.views import app_views
 
