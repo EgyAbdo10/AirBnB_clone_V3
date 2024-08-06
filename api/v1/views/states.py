@@ -36,9 +36,9 @@ def post_states():
     try:
         data = request.get_json()
     except Exception:
-        abort(400, message="Not a JSON")
+        abort(400, description="Not a JSON")
     if "name" not in data.keys():
-        abort(400, message="Missing name")
+        abort(400, description="Missing name")
 
     new_obj = State(**data)
     storage.new(new_obj)
@@ -63,7 +63,7 @@ def put_state(state_id):
     try:
         data = request.get_json()
     except Exception:
-        abort(400, message="Not a JSON")
+        abort(400, description="Not a JSON")
 
     for key, val in data.items():
         if key not in ["id", "created_at", "updated_at"]:
@@ -78,7 +78,7 @@ def put_state(state_id):
 #         try:
 #             data = request.get_json()
 #         except Exception:
-#             abort(400, message="Not a JSON")
+#             abort(400, description="Not a JSON")
 
 #         for key, val in data.items():
 #             if key not in ["id", "created_at", "updated_at"]:
@@ -102,9 +102,9 @@ def put_state(state_id):
 #         try:
 #             data = request.get_json()
 #         except Exception:
-#             abort(400, message="Not a JSON")
+#             abort(400, description="Not a JSON")
 #         if "name" not in data.keys():
-#             abort(400, message="Missing name")
+#             abort(400, description="Missing name")
 
 #         new_obj = State(**data)
 #         storage.new(new_obj)
@@ -130,7 +130,7 @@ def put_state(state_id):
 #         try:
 #             data = request.get_json()
 #         except Exception:
-#             abort(400, message="Not a JSON")
+#             abort(400, description="Not a JSON")
 
 #         for key, val in data.items():
 #             if key not in ["id", "created_at", "updated_at"]:
