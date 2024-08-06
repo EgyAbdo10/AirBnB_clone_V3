@@ -81,7 +81,7 @@ test_db_storage.py'])
         """count records in db"""
         storage.reload()
         count = storage.count()
-        self.assertTrue(len(storage.all()) == count)
+        self.assertTrue(len(storage.all().values()) == count)
 
 # class TestFileStorage(unittest.TestCase):
 #     """Test the FileStorage class"""

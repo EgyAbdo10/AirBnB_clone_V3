@@ -19,7 +19,7 @@ def abortNotExists(cls, obj_id):
 def get_states(state_id=None):
     """retrieve a state object"""
     if not state_id:
-        objs_dict = storage.all()
+        objs_dict = storage.all(State)
         obj_list = []
         for obj in objs_dict.values():
             obj_list.append(obj.to_dict())
