@@ -28,7 +28,8 @@ def get_status():
     return jsonify({"status": "OK"})
 
 
-@app_views.route("/stats", strict_slashes=False, strict_slashes=False, methods=["GET"])
+@app_views.route("/stats", strict_slashes=False, strict_slashes=False,
+                 methods=["GET"])
 def get_stats():
     """get objects count"""
     stats = {}
