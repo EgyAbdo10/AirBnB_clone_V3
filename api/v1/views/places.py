@@ -32,7 +32,7 @@ def get_city_places(city_id=None):
 
 @app_views.route("/places/<place_id>", strict_slashes=False,
                  methods=["GET"])
-def get_places(self, place_id):
+def get_places(place_id):
     """Retrieves a Place object. : GET /api/v1/places/<place_id>"""
     obj = abortNotExists(Place, place_id)
     return jsonify(obj.to_dict())
