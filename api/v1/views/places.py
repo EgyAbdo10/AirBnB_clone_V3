@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""modify state objects via APIs"""
+"""modify place objects via APIs"""
 from models.place import Place
 from models.city import City
 from models.user import User
@@ -41,19 +41,19 @@ def get_places(self, place_id):
 @app_views.route("/cities/<city_id>/places",
                  strict_slashes=False, methods=["POST"])
 def post_places(city_id):
-    """create a new state object"""
+    """create a new place object"""
     abortNotExists(City, city_id)
     try:
         data = request.get_json()
+        data["city_id"] = city_id
     except Exception:
         abort(400, description="Not a JSON")
-    if "name" not in data.keys():
-        abort(400, description="Missing name")
     if "user_id" not in data.keys():
         abort(400, description="Missing user_id")
 
     abortNotExists(User, data["user_id"])  # check for user id if it exists
-
+    if "name" not in data.keys():
+        abort(400, description="Missing name")
     new_obj = Place(**data)
     storage.new(new_obj)
     storage.save()
@@ -72,7 +72,7 @@ def delete_place(place_id):
 
 @app_views.route("/places/<place_id>", strict_slashes=False, methods=["PUT"])
 def put_place(place_id):
-    """Updates a State object: PUT /api/v1/places/<place_id>"""
+    """Updates a place object: PUT /api/v1/places/<place_id>"""
     obj = abortNotExists(Place, place_id)
     try:
         data = request.get_json()
