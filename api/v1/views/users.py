@@ -37,8 +37,10 @@ def post_users():
         data = request.get_json()
     except Exception:
         abort(400, description="Not a JSON")
-    if "name" not in data.keys():
-        abort(400, description="Missing name")
+    if "email" not in data.keys():
+        abort(400, description="Missing email")
+    if "password" not in data.keys():
+        abort(400, description="Missing password")
 
     new_obj = User(**data)
     storage.new(new_obj)
@@ -49,7 +51,7 @@ def post_users():
 @app_views.route("/users/<user_id>", strict_slashes=False,
                  methods=["DELETE"])
 def delete_user(user_id):
-    """Deletes a user object:: DELETE /api/v1/users/<user_id>"""
+    """Deletes a user object: DELETE /api/v1/users/<user_id>"""
     obj = abortNotExists(User, user_id)
     storage.delete(obj)
     storage.save()
@@ -66,7 +68,7 @@ def put_user(user_id):
         abort(400, description="Not a JSON")
 
     for key, val in data.items():
-        if key not in ["id", "created_at", "updated_at"]:
+        if key not in ["id", "email", "created_at", "updated_at"]:
             setattr(obj, key, val)
 
     storage.save()
