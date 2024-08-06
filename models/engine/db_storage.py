@@ -89,7 +89,6 @@ class DBStorage:
 
     def get(self, cls, id):
         """gete a record from db"""
-        self.reload()
         if cls in classes.values():
             result = self.__session().query(cls).filter_by(id=id).all()
             if result == []:
